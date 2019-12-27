@@ -2,7 +2,7 @@
 Arduboy games for Adafruit’s Pygamer and Pybadge
 
 This is a compilation of modified Arduboy games for the Pygamer (and I believe they should work on Pybadges too).
-I did not make any of these games, so feel free to check out the originals:
+I did not make any of these games, nor did I get approval from the original authors, so please take some time to check out the originals:
 
 Arduminer: http://www.bergasms.com/arduboy/Arduminer.html
 
