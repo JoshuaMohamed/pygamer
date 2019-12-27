@@ -24,6 +24,8 @@ DiceOfFate: https://github.com/TEAMarg/ID-37-DICE-of-FATE
 
 ECOMD: https://github.com/TEAMarg/ID-33-ECOMD
 
+Hopper: https://github.com/obono/ArduboyWorks
+
 MysticBalloons: https://github.com/TEAMarg/ID-34-Mystic-Balloon
 
 OmegaHorizon: http://neoretro.games/#ARDUBOY_OMEGA_HORIZON
