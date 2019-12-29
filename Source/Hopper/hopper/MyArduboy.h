@@ -4,7 +4,6 @@
 
 #ifdef USE_ARDUBOY2_LIB
 #include <Arduboy2.h>
-#include <ArduboyPlaytune.h>
 #define ARDUBOY_LIB_CLASS Arduboy2
 #define ARDUBOY_LIB_VER_TGT 40100
 typedef uint8_t buffer_t;
@@ -27,9 +26,6 @@ public:
 class MyArduboy : public ARDUBOY_LIB_CLASS
 {
 public:
-#ifdef USE_ARDUBOY2_LIB
-    MyArduboy(void);
-#endif
     void    beginNoLogo(void);
     bool    nextFrame(void);
     bool    buttonDown(uint8_t buttons);
@@ -60,7 +56,6 @@ private:
     uint8_t currentButtonState;
     uint8_t playScorePriority;
 #ifdef USE_ARDUBOY2_LIB
-    ArduboyPlaytune *pTunes;
 #else
     MyArduboyAudio  myAudio;
 #endif

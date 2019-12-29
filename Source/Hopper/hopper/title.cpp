@@ -1,3 +1,4 @@
+#define USE_ARDUBOY2_LIB
 #include "common.h"
 
 /*  Defines  */
@@ -219,7 +220,7 @@ void drawTitle(void)
     }
 }
 
-uint8_t setLastScore(int score, uint32_t frames)
+uint8_t setLastScore(uint16_t score, uint32_t frames)
 {
     lastScore = score;
 
@@ -437,7 +438,7 @@ static void drawTitleRecord(void)
     arduboy.printEx(16, 54, F("PLAY TIME  "));
     arduboy.print(playFrames / 3600); // minutes
     char buf[6];
-    sprintf(buf, "'%02d\"", playFrames / 60 % 60); // seconds
+    sprintf(buf, "'%02lu\"", playFrames / 60 % 60); // seconds
     arduboy.print(buf);
 }
 
@@ -456,17 +457,20 @@ static void drawTitleCredit(void)
 /*                             EEPROM Functions                              */
 /*---------------------------------------------------------------------------*/
 
+[[gnu::unused]]
 void eepSeek(int addr)
 {
     eepAddr = max(addr, EEPROM_STORAGE_SPACE_START);
 }
 
+[[gnu::unused]]
 uint8_t eepRead8(void)
 {
     eeprom_busy_wait();
     return eeprom_read_byte((const uint8_t *) eepAddr++);
 }
 
+[[gnu::unused]]
 uint16_t eepRead16(void)
 {
     eeprom_busy_wait();
@@ -475,6 +479,7 @@ uint16_t eepRead16(void)
     return ret;
 }
 
+[[gnu::unused]]
 uint32_t eepRead32(void)
 {
     eeprom_busy_wait();
@@ -483,6 +488,7 @@ uint32_t eepRead32(void)
     return ret;
 }
 
+[[gnu::unused]]
 void eepReadBlock(void *p, size_t n)
 {
     eeprom_busy_wait();
@@ -490,6 +496,7 @@ void eepReadBlock(void *p, size_t n)
     eepAddr += n;
 }
 
+[[gnu::unused]]
 void eepWrite8(uint8_t val)
 {
     eeprom_busy_wait();
@@ -497,6 +504,7 @@ void eepWrite8(uint8_t val)
     eepAddr++;
 }
 
+[[gnu::unused]]
 void eepWrite16(uint16_t val)
 {
     eeprom_busy_wait();
@@ -504,6 +512,7 @@ void eepWrite16(uint16_t val)
     eepAddr += 2;
 }
 
+[[gnu::unused]]
 void eepWrite32(uint32_t val)
 {
     eeprom_busy_wait();
@@ -511,6 +520,7 @@ void eepWrite32(uint32_t val)
     eepAddr += 4;
 }
 
+[[gnu::unused]]
 void eepWriteBlock(const void *p, size_t n)
 {
     eeprom_busy_wait();

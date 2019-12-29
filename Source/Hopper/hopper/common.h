@@ -1,6 +1,7 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#define USE_ARDUBOY2_LIB
 #include "MyArduboy.h"
 
 /*  Defines  */
@@ -25,7 +26,7 @@ void drawLogo(void);
 void initTitle(void);
 bool updateTitle(void);
 void drawTitle(void);
-uint8_t setLastScore(int score, uint32_t time);
+uint8_t setLastScore(uint16_t score, uint32_t time);
 
 void initGame(void);
 bool updateGame(void);

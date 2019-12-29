@@ -1,3 +1,4 @@
+#define USE_ARDUBOY2_LIB
 #include "common.h"
 
 /*  Defines  */
@@ -29,7 +30,9 @@ enum {
 
 #define CENTER_X        64
 #define CENTER_Y        32
+#if !defined(PI)
 #define PI              3.141592653589793
+#endif
 
 enum {
     ALIGN_LEFT = 0,
@@ -182,7 +185,7 @@ PROGMEM static const byte soundOver[] = {
     0x90, 51, 0, 200, 0x80, 0, 50,
     0x90, 50, 0, 220, 0x80, 0, 60,
     0x90, 49, 0, 240, 0x80, 0, 70,
-    0x90, 48, 0, 260, 0x80, 0xF0
+    0x90, 48, 0, static_cast<byte>(260), 0x80, 0xF0
 };
 
 static uint8_t  state;
@@ -190,8 +193,8 @@ static bool     toDraw;
 static uint32_t gameFrames;
 static int      counter;
 static int8_t   ignoreCnt;
-static uint     score;
-static uint     level;
+static uint16_t score;
+static uint16_t level;
 static bool     isHiscore;
 static int16_t  playerX, playerY;
 static int8_t   playerJump, playerTorque;
@@ -311,7 +314,7 @@ static void initLevel(bool isStart) {
         arduboy.playScore2(soundStart, 0);
     } else {
         level++;
-        arduboy.tunes.stopScore();
+        //arduboy.tunes.stopScore();
     }
     dprint("Init Level ");
     dprintln(level);
@@ -414,7 +417,7 @@ static void moveFloors(int scrollX, int scrollY, int scrollZ)
     int z = pFloor->z;
     if (state == STATE_GAME && z >= 0 && pFloor->type != FLRTYPE_GOAL) {
         uint8_t pos = pFloor->pos + 1;
-        uint8_t type = (pos == FLOORS_LEVEL) ? FLRTYPE_GOAL : flrTypes[random(flrTypesNum)];
+        uint8_t type = (pos == FLOORS_LEVEL) ? static_cast<uint8_t>(FLRTYPE_GOAL) : flrTypes[random(flrTypesNum)];
         floorIdxLast = nextFloorIdx(floorIdxLast);
         addFloor(type, pos, rand() * 2, rand() * 2, z - (512 + level * 32));
         dprint("floorIdxLast=");
@@ -590,7 +593,7 @@ static void fillPatternedRect(int16_t x, int16_t y, uint8_t w, int8_t h, const u
     for (uchar *p = arduboy.getBuffer() + x + (y / 8) * WIDTH; h > 0; h -= 8, p += WIDTH - w) {
         if (h < 8) d &= 0xFF >> (8 - h);
         for (uint8_t i = w; i > 0; i--, p++) {
-            *p = *p & ~d | pgm_read_byte(ptn + (int) p % 4) & d;
+            *p = ((*p & ~d) | (pgm_read_byte(ptn + (int) p % 4) & d));
         }
         d = 0xFF;
     }
